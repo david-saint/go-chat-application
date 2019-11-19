@@ -20,11 +20,12 @@ go get github.com/gorilla/websocket
 ### Demonstration
 
 To demo this application, all you have to do is clone and build.
+You can specify the port you want to run the application on with the -addr flag (it defaults to 8080).
 
 * Clone this repo: `git clone github.com/david-saint/go-chat-application`
 * Cd into the project: `cd go-chat-application`
 * Build the application: `go build -o release/chat`
-* Run the application: `./release/chat`
+* Run the application: `./release/chat -addr=":8080"`
 * Open Browser and view the application: [Localhost Port 8080](http://localhost:8080/)
 
 |Endpoint|Description|
