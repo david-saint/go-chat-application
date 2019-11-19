@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gorilla/websocket"
+	"log"
 	"net/http"
 )
 
@@ -9,7 +10,7 @@ type room struct {
 	forward chan []byte
 	join    chan *client
 	leave   chan *client
-	clients map[*client]boolu
+	clients map[*client]bool
 }
 
 const (

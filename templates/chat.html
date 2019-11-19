@@ -4,30 +4,80 @@
   <meta charset="UTF-8">
   <title>Chat</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
+    * { margin: 0; padding: 0; }
     body {
       width: 100vw;
       height: 100vh;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flex;
+      display: -o-flex;
       display: flex;
+      -webkit-flex-direction: column;
+      -moz-flex-direction: column;
+      -ms-flex-direction: column;
+      -o-flex-direction: column;
+      flex-direction: column;
+      justify-content: flex-end;
       -ms-align-items: center;
       align-items: center;
-      flex-direction: row;
-      justify-content: center;
+      padding: 15px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
       background-color: black;
     }
-    p {
+    input { display: block; }
+    ul {
       color: white;
-      font-size: 48px;
-      font-weight: 300;
-      text-align: center;
+      margin: 15px 0;
+      font-size: 18px;
+      list-style: none;
       font-family: sans-serif;
     }
+    li { line-height: 28px; }
   </style>
 </head>
 <body>
-  <p>Let's Chat (from templates)</p>
+  <ul id="messages"></ul>
+  <form id="chatbox">
+    <textarea></textarea>
+    <input type="submit" value="send">
+  </form>
 </body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+  /* eslint-disable */
+  $(function () {
+    var socket    = null;
+    var msgBox    = $('#chatbox textarea');
+    var messages  = $('#messages');
+
+    $('#chatbox').submit(function () {
+      if (!msgBox.val()) return false;
+      if (!socket) {
+        alert('Error: There is no socket connection.');
+        return false;
+      }
+      socket.send(msgBox.val());
+      msgBox.val('');
+      return false;
+    });
+
+    if (!window['WebSocket']) {
+      alert('Error: Your browser does not support web sockets.');
+    }
+
+    if (window['WebSocket']) {
+      socket = new WebSocket('ws://localhost:8080/room');
+      socket.onclose = function () {
+        alert('Connection has been closed.');
+      }
+      socket.onmessage = function (e) {
+        messages.append($('<li>').text(e.data));
+      }
+    }
+  });
+  /* eslint-enable */
+</script>
 </html>
