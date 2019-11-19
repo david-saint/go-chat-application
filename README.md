@@ -26,7 +26,7 @@ You can specify the port you want to run the application on with the -addr flag 
 * Cd into the project: `cd go-chat-application`
 * Build the application: `go build -o release/chat`
 * Run the application: `./release/chat -addr=":8080"`
-* Open Browser and view the application: [Localhost Port 8080](http://localhost:8080/)
+* Open Browser and view the application: [`Localhost Port 8080`](http://localhost:8080/)
 
 |Endpoint|Description|
 |:------------- | :----------: |
